@@ -8,7 +8,7 @@ const Main = () => {
             <div className='flex justify-center items-center h-[70vh]  bg-cover bg-no-repeat bg-center' style={{ backgroundImage: "url('/background.jpg')" }}>
               <div className='flex items-center bg-black/50 w-screen h-full justify-center px-4'>
               <div className='flex flex-col'>
-                    <h1 className='text-2xl font-bold text-white'>We Build Websites & Web Apps That Drives Results</h1>
+                    <h1 className='text-3xl font-bold text-white text-wrap md:w-130'>We Build Websites & Web Apps That Drives Results</h1>
                     <p className='font-semibold pt-2 text-white'>Tailored digital Solutions for business ready to grow</p>
 
                     <div className='pt-9 md:pt-5'>
