@@ -27,8 +27,11 @@ const Main = () => {
 
 
         <div className='pb-8'>
-            <h1 className='text-3xl font-bold text-center pt-10'>Our Services</h1>
-            <p className='text-center pt-1 text-gray-500 text-sm'>We offer a wide range of services to help you achieve your digital goals.</p>
+            <h1 className='text-3xl  font-bold text-center pt-10  '>Our Services</h1>
+            <div className='flex justify-center pt-2'>
+            <div className=' w-30 border-b-2 border-b-blue-700'/>
+            </div>
+            <p className='text-center pt-2 text-gray-500 text-sm'>We offer a wide range of services to help you achieve your digital goals.</p>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4 px-4 pt-10'>
               {services.map((items) => (
                 
