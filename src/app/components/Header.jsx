@@ -2,6 +2,7 @@ import React from "react";
 import navtop from "../navigation/navtop";
 import Link from "next/link";
 import { useState } from "react";
+import socials from "../navigation/socials";
 
 const Header = ({isActive, setIsActive}) => {
     
@@ -12,10 +13,11 @@ const Header = ({isActive, setIsActive}) => {
         setIsActive(!isActive);
       };
   return (
-    <section className="w-full px-5 pb-1 pt-1 max-md:justify-between flex items-center shadow-md gap-12">
+    <section className="w-full px-5 pb-1 pt-1 justify-between flex items-center shadow-md gap-12">
         {/* logo............................... */}
+      <div className="flex items-center gap-12">
       <div className="logo">
-        <img src="/logo.png" className="w-[100px]" alt="Logo" />
+        <img src="/logo.png" className="w-[100px] h-[10vh]" alt="Logo" />
       </div>
 
       {/* desktop menu...................... */}
@@ -30,6 +32,8 @@ const Header = ({isActive, setIsActive}) => {
           </Link>
         ))}
       </div>
+      </div>
+      {/* mobile menu */}
       <div className="menu md:hidden flex items-center " onClick={handleToggle}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,6 +49,21 @@ const Header = ({isActive, setIsActive}) => {
             />
           </svg>
         
+      </div>
+
+      <div className="hidden md:flex justify-end">
+    {socials.map((social) => (
+        <a
+          key={social.name}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-500 hover:text-blue-900 transition duration-300 mx-2"
+        >
+          {social.icon}
+        </a>
+      ))}
+      
       </div>
 
       {/* //mobile menu //////////...........*/}
@@ -74,6 +93,20 @@ const Header = ({isActive, setIsActive}) => {
                 </Link>
                 ))}
             </div>
+            <div className="flex md:hidden justify-center items-center mt-15">
+    {socials.map((social) => (
+        <a
+          key={social.name}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-500 hover:text-blue-900 transition duration-300 mx-2"
+        >
+          {social.icon}
+        </a>
+      ))}
+      
+      </div>
         </div>
       )}
     </section>

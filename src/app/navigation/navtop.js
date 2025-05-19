@@ -12,10 +12,6 @@ const navtop = [
         href: '/contact',
     },
     {
-        name: 'Blog',
-        href: '/blog',
-    },
-    {
         name: 'Services',
         href: '/services',
     },
