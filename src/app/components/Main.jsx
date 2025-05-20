@@ -1,6 +1,8 @@
 import React from 'react'
 import services from '../navigation/services'
 import Contactus from './Contactus'
+import about, { vision } from '../navigation/about'
+import Aboutus from './aboutus'
 
 const Main = () => {
   return (
@@ -46,6 +48,9 @@ const Main = () => {
               ))}
                 </div>
         </div>
+       <div>
+        <Aboutus/>
+       </div>
         <div className='bg-gray-900'>
            <Contactus />
         </div>
