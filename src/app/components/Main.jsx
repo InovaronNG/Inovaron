@@ -16,8 +16,8 @@ const Main = () => {
                     <p className='font-semibold pt-2 text-white'>Tailored digital Solutions for business ready to grow</p>
 
                     <div className='pt-9 md:pt-5'>
-                        <button className='bg-blue-900 text-white px-4 py-2 rounded-md mt-4'>Contact us</button>
-                        <button className='bg-white text-blue-900 px-4 py-2 rounded-md mt-4 ml-4'>See Our Services</button>
+                        {/* <button className='bg-blue-900 text-white px-4 py-2 rounded-md mt-4'>Contact us</button> */}
+                        <button className='bg-white text-blue-900 px-4 py-2 rounded-md mt-4 '>See Our Services</button>
                     </div>
                     <p className='pt-9 text-white'>Innovative. Simple. Fast </p>
                 </div>
