@@ -46,7 +46,10 @@ const Main = () => {
               ))}
                 </div>
         </div>
-        <Contactus />
+        <div className='bg-gray-900'>
+           <Contactus />
+        </div>
+       
     </div>
   )
 }
