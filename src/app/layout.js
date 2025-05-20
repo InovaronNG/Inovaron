@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "INOVARON",
-  description: "Innovative Solutions for Your Business",
+  description: "Innovative Solutions for Your Business with inovaron",
 };
 
 export default function RootLayout({ children }) {

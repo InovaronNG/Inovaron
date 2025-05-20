@@ -1,5 +1,6 @@
 import React from 'react'
 import services from '../navigation/services'
+import Contactus from './Contactus'
 
 const Main = () => {
   return (
@@ -45,6 +46,7 @@ const Main = () => {
               ))}
                 </div>
         </div>
+        <Contactus />
     </div>
   )
 }
