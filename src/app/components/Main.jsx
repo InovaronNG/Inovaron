@@ -3,6 +3,7 @@ import services from '../navigation/services'
 import Contactus from './Contactus'
 import about, { vision } from '../navigation/about'
 import Aboutus from './aboutus'
+import Footer from './Footer'
 
 const Main = () => {
   return (
@@ -54,6 +55,7 @@ const Main = () => {
         <div className='bg-gray-900'>
            <Contactus />
         </div>
+        <Footer/>
        
     </div>
   )
