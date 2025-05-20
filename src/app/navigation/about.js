@@ -11,7 +11,7 @@ export default about =[
 export const vision = [
     {
         title: "Vision",
-        description: "Our Vision is to be among the leading technology product and service providers in the world through the development of creative and innovative technology solutions with international standards.",
+        text: "Our Vision is to be among the leading technology product and service providers in the world through the development of creative and innovative technology solutions with international standards.",
 
     }
 ]
