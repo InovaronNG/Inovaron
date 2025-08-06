@@ -3,10 +3,12 @@ import navtop from "../navigation/navtop";
 import Link from "next/link";
 import { useState } from "react";
 import socials from "../navigation/socials";
+import { usePathname } from "next/navigation";
 
 const Header = ({isActive, setIsActive}) => {
     
     const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname()
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
@@ -24,9 +26,9 @@ const Header = ({isActive, setIsActive}) => {
       <div className="nav hidden md:flex gap-8 ">
         {navtop.map((index) => (
           <Link
-            key={index}
+            key={index.id}
             href={index.href}
-            className="hover:text-blue-900 transition-all duration-300"
+            className={`${ pathname === index.href ? "text-blue-900" : ""}hover:text-blue-900 transition-all  duration-300`}
           >
             <div className="nav-item">{index.name}</div>
           </Link>
@@ -40,11 +42,11 @@ const Header = ({isActive, setIsActive}) => {
             width="27"
             height="27"
             fill="currentColor"
-            class="bi bi-list"
+            className="bi bi-list"
             viewBox="0 0 16 16"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
             />
           </svg>
@@ -54,7 +56,7 @@ const Header = ({isActive, setIsActive}) => {
       <div className="hidden md:flex justify-end">
     {socials.map((social) => (
         <a
-          key={social.name}
+          key={social.id}
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
@@ -75,7 +77,7 @@ const Header = ({isActive, setIsActive}) => {
             width="26"
             height="26"
             fill="currentColor"
-            class="bi bi-x-lg"
+            className="bi bi-x-lg"
             viewBox="0 0 16 16"
             onClick={handleToggle}
           >

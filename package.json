@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lottie-react": "^2.4.1",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4",
     "tailwindcss-motion": "^1.1.0"
   }

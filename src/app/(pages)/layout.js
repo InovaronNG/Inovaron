@@ -11,8 +11,8 @@ export default function RootLayout({ children }) {
     setIsActive(false) : null ;
   }
   return (
-    <html lang="en">
-      <body>
+    <div>
+      <div>
          <div className="sticky top-0 z-50 bg-white">
              <Header  isActive={isActive} setIsActive={setIsActive}/>
              </div>
@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
               {children}
              </div>
         
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

@@ -26,7 +26,7 @@ const page = () => {
       </div>
     <div className="shadow-lg pb-19">
     {about.map((items) => (
-        <div className=" px-2 rounded-lg shadow-xl pb-5">
+        <div className=" px-2 rounded-lg shadow-xl pb-5" key={items.id}>
           <div className="text-3xl flex flex-col justify-center items-center font-bold text-center pt-10 ">
             {items.title}
              <div className="border-b-2 border-b-blue-700 w-40 pt-3" />
@@ -78,7 +78,7 @@ const page = () => {
           </div>
 
           {vision.map((items) => (
-           <div className="pb-25">
+           <div className="pb-25" key={items.id}>
              <div className="text-3xl flex flex-col justify-center items-center font-bold text-center pt-10 ">
             {items.title}
              <div className="border-b-2 border-b-blue-700 w-40 pt-3" />

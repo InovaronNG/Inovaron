@@ -24,7 +24,7 @@ const Main = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4 px-4 pt-10'>
               {services.map((items) => (
                 
-                  <div className='bg-white shadow-2xl px-4 rounded-md py-6'>
+                  <div className='bg-white shadow-2xl px-4 rounded-md py-6' key={items.id}>
                     <div>
                         {items.icon}
                     </div>
