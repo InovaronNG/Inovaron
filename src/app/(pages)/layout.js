@@ -2,6 +2,10 @@
 import Header from "./components/Header";
 import { useState } from "react";
 
+export const metadata = {
+  title: "INOVAREUN || Innovative Solutions for Your Business",
+  // description: "Innovative Solutions for Your Business with inovareun",
+};
 
 export default function RootLayout({ children }) {
   const [isActive, setIsActive] = useState(false);
