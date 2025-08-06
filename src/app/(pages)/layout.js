@@ -15,11 +15,7 @@ export default function RootLayout({ children }) {
     setIsActive(false) : null ;
   }
   return (
-    <html lang="en">
-      <head>
-        <title>INOVAREUN || Innovative Solutions for Your Business</title>
-      </head>
-      <main>
+    <div>
       <div>
          <div className="sticky top-0 z-50 bg-white">
              <Header  isActive={isActive} setIsActive={setIsActive}/>
@@ -29,7 +25,6 @@ export default function RootLayout({ children }) {
              </div>
         
       </div>
-      </main>
-    </html>
+    </div>
   );
 }
