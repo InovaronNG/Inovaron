@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       <head>
         <title>INOVAREUN || Innovative Solutions for Your Business</title>
       </head>
-      <body>
+      <main>
       <div>
          <div className="sticky top-0 z-50 bg-white">
              <Header  isActive={isActive} setIsActive={setIsActive}/>
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
              </div>
         
       </div>
-      </body>
+      </main>
     </html>
   );
 }
