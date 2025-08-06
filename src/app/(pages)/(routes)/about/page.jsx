@@ -35,7 +35,7 @@ const page = () => {
           <div className="flex justify-center items-center">
           <div className="border-1 lg:w-170 border-gray-500 mt-6 md:py-9 md:px-10 px-3 py-4 rounded-xl shadow-2xl bg-white">
           <div className="w-full lg:w-150 pt-6 text-gray-500 text-sm">
-            <b>INOVARON</b> {items.text}
+            <b>INOVAREUN</b> {items.text}
 
           </div>
           </div>
