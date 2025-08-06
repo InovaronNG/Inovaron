@@ -2,10 +2,10 @@
 import Header from "./components/Header";
 import { useState } from "react";
 
-export const metadata = {
-  title: "INOVAREUN || Innovative Solutions for Your Business",
-  // description: "Innovative Solutions for Your Business with inovareun",
-};
+// export const metadata = {
+//   title: "INOVAREUN || Innovative Solutions for Your Business",
+//   // description: "Innovative Solutions for Your Business with inovareun",
+// };
 
 export default function RootLayout({ children }) {
   const [isActive, setIsActive] = useState(false);
@@ -15,7 +15,10 @@ export default function RootLayout({ children }) {
     setIsActive(false) : null ;
   }
   return (
-    <div>
+    <html>
+      <head>
+        <title>INOVAREUN || Innovative Solutions for Your Business</title>
+      </head>
       <div>
          <div className="sticky top-0 z-50 bg-white">
              <Header  isActive={isActive} setIsActive={setIsActive}/>
@@ -25,6 +28,6 @@ export default function RootLayout({ children }) {
              </div>
         
       </div>
-    </div>
+    </html>
   );
 }
