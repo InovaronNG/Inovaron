@@ -1,142 +1,239 @@
-"use client";
+"use client"
+import React, { useState, useEffect, useRef } from 'react';
+import { Sparkles, Code, TrendingUp, ShoppingBag, Layout, Megaphone } from 'lucide-react'; 
+import Footer from "../../components/Footer"
 
-import React from "react";
-import about, { vision } from "../../navigation/about";
-import Footer from "../../components/Footer";
+// Mock data for services
+const services = [
+  { id: 1, name: "Web Design", description: "Crafting beautiful and functional websites tailored to your brand.", icon: <Sparkles className="w-12 h-12" /> },
+  { id: 2, name: "Web Development", description: "Building robust and scalable web applications with cutting-edge technology.", icon: <Code className="w-12 h-12" /> },
+  { id: 3, name: "SEO Optimization", description: "Improving your search engine rankings to drive organic traffic.", icon: <TrendingUp className="w-12 h-12" /> },
+  { id: 4, name: "E-commerce Solutions", description: "Developing secure and user-friendly online stores for your business.", icon: <ShoppingBag className="w-12 h-12" /> },
+  { id: 5, name: "UI/UX Design", description: "Creating intuitive and engaging user interfaces for an exceptional experience.", icon: <Layout className="w-12 h-12" /> },
+  { id: 6, name: "Digital Marketing", description: "Strategies to connect you with your target audience and grow your reach.", icon: <Megaphone className="w-12 h-12" /> },
+];
 
-const page = () => {
+// Hero component with refined styling
+const Hero = () => (
+  <div className="relative bg-gradient-to-br from-indigo-950 to-gray-900 text-white py-24 md:py-40 overflow-hidden rounded-b-[4rem] shadow-2xl">
+    <div className="absolute inset-0 z-0 opacity-10">
+      {/* Subtle background pattern */}
+      <svg className="w-full h-full" fill="none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <pattern id="pattern-hero" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="1" height="1" fill="rgba(255,255,255,0.05)" />
+        </pattern>
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-hero)" />
+      </svg>
+    </div>
+    <div className="container mx-auto px-4 text-center relative z-10">
+      <h2 className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight mb-6 animate-fade-in-up">
+        Innovate. Reimagine. Unite.
+      </h2>
+      <p className="text-xl md:text-2xl mt-4 max-w-3xl mx-auto opacity-90 animate-fade-in delay-200">
+        Transforming digital ideas into powerful realities.
+      </p>
+      <button className="mt-10 px-8 py-4 bg-amber-400 text-indigo-950 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in delay-400 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
+        Discover Our Solutions
+      </button>
+    </div>
+  </div>
+);
+
+// About Us component with refined styling
+const Aboutus = () => (
+  <div className="bg-gradient-to-br from-gray-50 to-white  text-gray-900  py-20 md:py-32 rounded-3xl mx-4 shadow-xl -mt-16 relative z-20">
+    <div className="container mx-auto px-4 text-center">
+      <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-indigo-700 ">
+        Who We Are
+      </h2>
+      <p className="mt-4 text-lg md:text-xl max-w-4xl mx-auto text-gray-700 ">
+        Inovareun is a collective of visionary designers and developers dedicated to pushing the boundaries of digital innovation. We believe in crafting experiences that are not only aesthetically pleasing but also profoundly impactful and functionally superior. Our journey is driven by a passion for technology and a commitment to excellence, ensuring every project we undertake redefines possibilities.
+      </p>
+      <div className="mt-10 flex flex-wrap justify-center gap-8">
+        <div className="p-6 bg-indigo-100  rounded-xl shadow-md backdrop-blur-sm transform hover:scale-105 transition-all duration-300 border border-indigo-200">
+          <p className="text-3xl font-bold text-indigo-700 ">10+</p>
+          <p className="text-lg text-gray-800 ">Years Experience</p>
+        </div>
+        <div className="p-6 bg-amber-100  rounded-xl shadow-md backdrop-blur-sm transform hover:scale-105 transition-all duration-300 border border-amber-200 ">
+          <p className="text-3xl font-bold text-amber-700 ">200+</p>
+          <p className="text-lg text-gray-800">Successful Projects</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Contact Us component with refined styling
+const Contactus = () => (
+  <div className="bg-gradient-to-br from-indigo-900 to-gray-950 text-white py-20 md:py-32 rounded-t-[4rem] shadow-2xl mt-20">
+    <div className="container mx-auto px-4 text-center">
+      <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
+        Let's Create Together
+      </h2>
+      <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto opacity-90">
+        Ready to start your next big project? Reach out to us, and let's turn your vision into reality.
+      </p>
+      <div className="mt-10">
+        <a href="mailto:info@inovareun.com" className="inline-block px-10 py-4 bg-amber-400 text-indigo-900 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
+          Say Hello
+        </a>
+      </div>
+    </div>
+  </div>
+);
+
+const AnimatedFeatureSection = () => {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [spinClass, setSpinClass] = useState('');
+  const [objectTransform, setObjectTransform] = useState('translate-x-full opacity-0');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.3, // Trigger when 30% of the section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      setSpinClass('animate-spin-slow'); // Start spin when visible
+      setObjectTransform('translate-x-0 opacity-100'); // Object slides in
+    } else {
+      setSpinClass(''); // Stop spin when not visible
+      setObjectTransform('translate-x-full opacity-0'); // Object slides out
+    }
+  }, [isVisible]);
+
   return (
-    <div>
-      <div
-        className="flex justify-center items-center h-[70vh]  bg-cover bg-no-repeat bg-center"
-        style={{ backgroundImage: "url('/background2.jpg')" }}
-      >
-        <div className="flex items-center bg-black/30 w-screen h-full justify-center px-4">
-          <div className="flex flex-col ">
-            <h1 className="text-3xl font-bold text-white text-wrap md:w-130">
-              {" "}
-              Our mission is to meet peoples needs in ways they never imagined
-              possible.
-            </h1>
-            <p className="font-semibold pt-2 text-white">
-              Tailored digital Solutions for business ready to grow
-            </p>
+    <div ref={sectionRef} className="bg-gradient-to-br from-gray-100 to-white  py-20 md:py-32 overflow-hidden relative rounded-3xl mx-4 my-20 shadow-xl">
+      <div className="container mx-auto px-4 max-w-7xl text-center">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900  leading-tight mb-4 drop-shadow-sm">
+          Our Vision
+        </h2>
+        <p className="text-lg md:text-xl text-gray-700  max-w-3xl mx-auto mb-12">
+          We are dedicated to transforming digital landscapes with innovative solutions, meeting needs in ways people never imagined possible.
+        </p>
+
+        <div className="relative flex justify-center items-center h-64 md:h-96">
+          {/* Spinning Object */}
+          <div className={`w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-indigo-500 to-amber-500 rounded-full flex items-center justify-center shadow-lg transition-all duration-1000 ${spinClass}`}>
+            <Sparkles className="text-white text-5xl w-16 h-16" />
+          </div>
+
+          {/* Object moving into container */}
+          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                                                  w-48 h-48 md:w-64 md:h-64 border-4 border-indigo-400 rounded-xl 
+                                                  flex items-center justify-center bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm 
+                                                  transition-all duration-1000 ease-out 
+                                                  ${objectTransform}`}>
+            <Megaphone className="text-indigo-400 text-6xl w-20 h-20" />
           </div>
         </div>
       </div>
-    <div className="shadow-lg pb-19">
-    {about.map((items) => (
-        <div className=" px-2 rounded-lg shadow-xl pb-5" key={items.id}>
-          <div className="text-3xl flex flex-col justify-center items-center font-bold text-center pt-10 ">
-            {items.title}
-             <div className="border-b-2 border-b-blue-700 w-40 pt-3" />
-          </div>
-         
-          <div className="flex justify-center items-center">
-          <div className="border-1 lg:w-170 border-gray-500 mt-6 md:py-9 md:px-10 px-3 py-4 rounded-xl shadow-2xl bg-white">
-          <div className="w-full lg:w-150 pt-6 text-gray-500 text-sm">
-            <b>INOVAREUN</b> {items.text}
 
-          </div>
-          </div>
-         <div className="hidden xl:flex justify-center items-center ">
-         <div className="flex">
-            <div className="border-b border-b-green-500 w-15"/>
-            <div className="border-b border-b-red-500 w-15"/>
-            <div className="border-b border-b-blue-500 w-15"/>
-            <div className="border-b border-b-yellow-500 w-15"/>
-            <div className="border-b border-b-purple-500 w-15"/>
-          </div>
+      {/* Tailwind CSS for custom animations (spin-slow, fade-in, fade-in-up) */}
+      <style>{`
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 10s linear infinite;
+        }
 
-          {/* <div className="flex animate-spin shadow-red-500 shadow-lg rounded-full">
-          <div className="border-b-3 border-b-green-500 w-15"/>
-            <div className="border-b-3 border-b-red-500 w-15"/>
-            <div className="border-b-3 border-b-blue-500 w-15"/>
-            <div className="border-b-3  border-b-yellow-500 w-15"/>
-            <div className="border-b-3 border-b-purple-500 w-15"/>
-          </div> */}
-          <div className="flex flex-col justify-center items-center">
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fade-in 1s ease-out forwards;
+        }
 
-{/* <div role="status">
-    <svg aria-hidden="true" class="w-18 h-28 text-red-400 animate-spin dark:text-red-400 fill-green-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-    </svg>
-    <span class="sr-only">Loading...</span>
-</div> */}
-
-<div className="flex flex-col ">
-          <div className="border-l-2 border-l-green-500 h-15"/>
-            <div className="border-l-2 border-l-red-500 h-15"/>
-            <div className="border-l-2 border-l-blue-500 h-15"/>
-            <div className="border-l-2  border-l-yellow-500 h-15"/>
-            <div className="border-l-2 border-l-purple-500 h-15"/>
-          </div>
-
-          </div>
-         </div>
-          </div>
-
-          {vision.map((items) => (
-           <div className="pb-25" key={items.id}>
-             <div className="text-3xl flex flex-col justify-center items-center font-bold text-center pt-10 ">
-            {items.title}
-             <div className="border-b-2 border-b-blue-700 w-40 pt-3" />
-          </div>
-             <div className="flex justify-center items-center">
-             <div className="border-1 lg:w-170 border-gray-500 mt-6 md:py-9 md:px-10 px-3 py-4 rounded-xl shadow-2xl bg-white">
-             <div className="w-full lg:w-150 pt-6 text-gray-500 text-sm">
-               {items.text}
-   
-             </div>
-             </div>
-             <div className="hidden xl:flex justify-center items-center ">
-         <div className="flex">
-            <div className="border-b border-b-green-500 w-15"/>
-            <div className="border-b border-b-red-500 w-15"/>
-            <div className="border-b border-b-blue-500 w-15"/>
-            <div className="border-b border-b-yellow-500 w-15"/>
-            <div className="border-b border-b-purple-500 w-15"/>
-          </div>
-
-          {/* <div className="flex animate-spin shadow-red-500 shadow-lg rounded-full">
-          <div className="border-b-3 border-b-green-500 w-15"/>
-            <div className="border-b-3 border-b-red-500 w-15"/>
-            <div className="border-b-3 border-b-blue-500 w-15"/>
-            <div className="border-b-3  border-b-yellow-500 w-15"/>
-            <div className="border-b-3 border-b-purple-500 w-15"/>
-          </div> */}
-          <div className="flex flex-col justify-center items-center">
-
-{/* <div role="status">
-    <svg aria-hidden="true" class="w-18 h-28 text-red-400 animate-spin dark:text-red-400 fill-green-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-    </svg>
-    <span class="sr-only">Loading...</span>
-</div> */}
-
-<div className="flex flex-col ">
-          <div className="border-l-2 border-l-green-500 h-15"/>
-            <div className="border-l-2 border-l-red-500 h-15"/>
-            <div className="border-l-2 border-l-blue-500 h-15"/>
-            <div className="border-l-2  border-l-yellow-500 h-15"/>
-            <div className="border-l-2 border-l-purple-500 h-15"/>
-          </div>
-
-          </div>
-         </div>
-             </div>
-           </div>
-          ))}
-        </div>
-      ))}
-    </div>
-     <div className="">
-     <Footer/>
-     </div>
+        @keyframes fade-in-up {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+          animation: fade-in-up 1s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+      `}</style>
     </div>
   );
 };
 
-export default page;
+const App = () => {
+
+  return (
+    <div className="bg-gray-100  font-inter dark:text-white min-h-screen antialiased">
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Services Section */}
+      <div className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 drop-shadow-sm text-gray-900 ">
+            Our Expertise
+          </h1>
+          <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-amber-500 rounded-full mx-auto mb-6" />
+          <p className="text-lg md:text-xl text-gray-600  max-w-2xl mx-auto">
+            We offer a comprehensive suite of digital services designed to accelerate your growth.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((item) => (
+            <div
+              className="bg-white  rounded-xl shadow-lg p-6 flex flex-col items-center text-center
+                         transform transition-all duration-300 hover:scale-105 hover:shadow-xl
+                         border border-gray-100 dark:border-gray-700"
+              key={item.id}
+            >
+              <div className="mb-4 text-5xl text-indigo-600 ">
+                {item.icon}
+              </div>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 ">
+                {item.name}
+              </h2>
+              <p className="text-base text-gray-600 ">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Animated Feature Section */}
+      <AnimatedFeatureSection />
+
+      {/* About Us Section */}
+      <Aboutus />
+
+      {/* Contact Us Section */}
+      <Contactus />
+
+      {/* Footer Section */}
+      <Footer />
+    </div>
+  );
+};
+
+export default App;

@@ -1,110 +1,137 @@
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
+// Removed: import 'react-toastify/dist/ReactToastify.css';
+// Please ensure 'react-toastify/dist/ReactToastify.css' is imported globally in your project.
 
 const Contactus = () => {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState("")
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
-  const route = useRouter()
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: "9d656c0b-a9da-48d9-adf3-776f688cc3ac",
-        name: e.target.name.value,
-        email: e.target.email.value,
-        message: e.target.message.value,
-      }),
-    });
-    const result = await response.json();
-    if (result.success) {
-      console.log(result);
-      setLoading(false);
-      toast.success("Sent!")
 
-    } else {
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "9d656c0b-a9da-48d9-adf3-776f688cc3ac", // Keep your actual access key
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        console.log(result);
+        toast.success("Message sent successfully!");
+        setFormData({ name: '', email: '', message: '' }); // Clear form fields
+      } else {
+        console.error("Submission failed:", result);
+        toast.error("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("An error occurred. Please try again later.");
+    } finally {
       setLoading(false);
     }
   }
+
   return (
-    <section className="">
-        <ToastContainer/>
-      <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-          Contact Us
-        </h2>
-        <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
-          Fill the contact form below to get in touch with us.
-        </p>
-        <form action="#" onSubmit={handleSubmit} onChange={(e) => setFormData(e.target.value)} className="space-y-8">
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+    <section className="bg-gray-50 dark:bg-gray-900 py-12 md:py-20 lg:py-24 font-inter">
+      <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
+      <div className="mx-auto max-w-screen-lg px-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 md:p-10 lg:p-12 border border-gray-100 dark:border-gray-700">
+          <h2 className="mb-4 text-4xl md:text-5xl font-extrabold text-center text-gray-900 dark:text-white leading-tight">
+            Get in Touch
+          </h2>
+          <p className="mb-8 md:mb-12 text-lg font-medium text-center text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Have a question or a project in mind? We'd love to hear from you! Fill out the form below.
+          </p>
+          <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+            <div>
+              <label
+                htmlFor="name"
+                className="block mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200"
+              >
+                Your Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="block w-full p-3 text-base text-gray-900 bg-gray-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-sm-light transition duration-200 ease-in-out"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200"
+              >
+                Your Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="block w-full p-3 text-base text-gray-900 bg-gray-100 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-sm-light transition duration-200 ease-in-out"
+                placeholder="name@example.com"
+                required
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="message"
+                className="block mb-2 text-sm font-semibold text-gray-800 dark:text-gray-200"
+              >
+                Your Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                value={formData.message}
+                onChange={handleChange}
+                className="block p-3 w-full text-base text-gray-900 bg-gray-100 rounded-lg shadow-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition duration-200 ease-in-out"
+                placeholder="Leave your message here..."
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              className="w-full inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white bg-blue-600 rounded-lg shadow-lg 
+                         hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 
+                         transition-all duration-300 ease-in-out transform hover:scale-105"
+              disabled={loading}
             >
-              Your email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-              placeholder="name@gmail.com"
-              required
-              name="email"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="subject"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="subject"
-              className="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-              placeholder="Enter your name"
-              required
-              name="name"
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-            >
-              Your message
-            </label>
-            <textarea
-              id="message"
-              rows="6"
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="Leave a comment..."
-              name="message"
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-900 text-white px-6 py-2 rounded-lg"
-          >
-            {!loading ? (
-              "Send Message"
-            ) : (
-              <div>
-                <div role="status flex gap-1">
-                    <span>Sending....   </span>
+              {!loading ? (
+                "Send Message"
+              ) : (
+                <div className="flex items-center gap-2">
+                  <span>Sending...</span>
                   <svg
                     aria-hidden="true"
-                    className="inline w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
+                    className="inline w-5 h-5 text-blue-200 animate-spin fill-blue-600"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -119,10 +146,10 @@ const Contactus = () => {
                     />
                   </svg>
                 </div>
-              </div>
-            )}
-          </button>
-        </form>
+              )}
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   );

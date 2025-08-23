@@ -12,7 +12,7 @@ const navtop = [
     {
         id:3,
         name: 'Contact',
-        href: '/contact',
+        href: '/contactus',
     },
     {
         id:4,

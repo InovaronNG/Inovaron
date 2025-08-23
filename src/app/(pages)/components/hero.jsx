@@ -1,90 +1,145 @@
-import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
 const Hero = () => {
-    const router = useRouter()
+    // Define the slides for the carousel with reliable placeholder image URLs
+    const slides = [
+        {
+            id: 1,
+            headline: "We Build Web Experiences That Deliver Results",
+            subheading: "Tailored digital solutions crafted to elevate your brand and drive measurable business growth.",
+            tagline: "Innovative. Seamless. Scalable.",
+            // Placeholder for digital strategy background
+            imageUrl: "https://images.unsplash.com/photo-1508780709619-79562169bc64?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fHRlY2h8ZW58MHx8MHx8fDA%3D", 
+            // Placeholder for web dev illustration
+            illustrationUrl: "https://placehold.co/600x400/1E3A8A/FFFFFF?text=Web+Dev+Illustration" 
+        },
+        {
+            id: 2,
+            headline: "Unlock Your Business's Full Online Potential",
+            subheading: "From stunning websites to powerful web applications, we create tools that truly work for you.",
+            tagline: "Creative. User-Centric. Robust.",
+            // Placeholder for business growth background
+            imageUrl: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODF8fHRlY2h8ZW58MHx8MHx8fDA%3D", 
+            // Placeholder for analytics and growth illustration
+            illustrationUrl: "https://images.unsplash.com/photo-1542744173-05336fcc7ad4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGdyYXBofGVufDB8fDB8fHww" 
+        },
+        {
+            id: 3,
+            headline: "Your Vision, Our Expertise: Digital Made Real",
+            subheading: "Partner with us to transform your ideas into engaging and high-performing web platforms.",
+            tagline: "Collaborative. Transparent. Efficient.",
+            // Placeholder for collaborative design background
+            imageUrl: "https://plus.unsplash.com/premium_photo-1678565999332-1cde462f7b24?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTR8fHRlY2h8ZW58MHx8MHx8fDA%3D", 
+            // Placeholder for teamwork illustration
+            illustrationUrl: "https://placehold.co/600x400/36B37E/FFFFFF?text=Teamwork+Illustration" 
+        },
+    ];
 
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+    const autoplayInterval = 7000; // 7 seconds
 
-    const handleServices = (e) => {
-        e.preventDefault()
-        router.push("/service")
-    }
-  return (
-    <div>
-        
+    // Function to go to the next slide
+    const goToNextSlide = () => {
+        setCurrentSlideIndex((prevIndex) => 
+            (prevIndex + 1) % slides.length
+        );
+    };
 
-<div id="default-carousel" className="relative w-full" data-carousel="slide">
-    
-    <div className="">
+    // Autoplay effect
+    useEffect(() => {
+        const intervalId = setInterval(goToNextSlide, autoplayInterval);
 
-        <div className='flex justify-center items-center h-[70vh]  bg-cover bg-no-repeat bg-center' style={{ backgroundImage: "url('/background.jpg')" }}>
-              <div className='flex items-center bg-black/50 w-screen h-full justify-center px-4'>
-              <div className='flex flex-col '>
-                    <h1 className='text-3xl font-bold text-white text-wrap md:w-130'>We Build Websites & Web Apps That Drives Results</h1>
-                    <p className='font-semibold pt-2 text-white'>Tailored digital Solutions for business ready to grow</p>
+        // Clear interval on component unmount or when slide changes manually
+        return () => clearInterval(intervalId);
+    }, [currentSlideIndex, slides.length, autoplayInterval]);
 
-                    <div className='pt-9 md:pt-5'>
-                        {/* <button className='bg-blue-900 text-white px-4 py-2 rounded-md mt-4'>Contact us</button> */}
-                        <button className='bg-blue-900 text-white px-4 py-2 rounded-md mt-4 cursor-pointer' onClick={handleServices}>See Our Services</button>
-                    </div>
-                    <p className='pt-9 text-white'>Innovative. Simple. Fast </p>
-                </div>
-                <div className='hidden md:flex'>
-                    <img src="/side.png" alt="main" className='w-full  object-cover scale-100' />
-                    </div>
-              </div>
+    const currentSlide = slides[currentSlideIndex];
+
+    return (
+        <section 
+            className="relative w-full min-h-[70vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden"
+        >
+            {/* Background Image for the current slide */}
+            <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out"
+                style={{ 
+                    backgroundImage: `url('${currentSlide.imageUrl}')`,
+                    opacity: 1,
+                }}
+            >
+                {/* Dynamic Overlay for better text readability and visual depth */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-blue-800/60 to-purple-800/70 opacity-90"></div>
             </div>
-        
-       
-        {/* <div className="hidden duration-500 ease-in-out" data-carousel-item>
-            <img src="/background2.jpg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-        </div> */}
-       
-        {/* <div className="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/background.jpg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-        </div> */}
-       
+            
+            <div className="relative z-10 w-full px-4 py-16 flex flex-col-reverse md:flex-row items-center justify-center gap-10 lg:gap-20 max-w-7xl mx-auto">
+                {/* Text Content */}
+                <div className="flex flex-col text-center md:text-left items-center md:items-start text-white max-w-xl animate-fade-in-up">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight drop-shadow-lg">
+                        {currentSlide.headline}
+                    </h1>
+                    <p className="mt-4 text-lg md:text-xl font-light leading-relaxed opacity-90">
+                        {currentSlide.subheading}
+                    </p>
+                    <div className="mt-10">
+                        <a
+                            href="/service" // Link directly to the service page
+                            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-xl 
+                                       hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 
+                                       focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+                            aria-label="Explore Our Services"
+                        >
+                            Explore Our Services
+                        </a>
+                    </div>
+                    <p className="mt-8 text-base font-light italic opacity-70">
+                        {currentSlide.tagline}
+                    </p>
+                </div>
 
-        {/* <div className="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/docs/images/carousel/carousel-4.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-        </div> */}
-       
-       
-        {/* <div className="hidden duration-700 ease-in-out" data-carousel-item>
-            <img src="/docs/images/carousel/carousel-5.svg" className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."/>
-        </div> */}
-    </div>
-    
-    
-    {/* <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-        <button type="button" className="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-        <button type="button" className="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
-    </div> */}
-    
-    
-    {/* <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-            </svg>
-            <span class="sr-only">Previous</span>
-        </span>
-    </button>
-    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="sr-only">Next</span>
-        </span>
-    </button> */}
-</div>
+                {/* Hero Illustration */}
+                <div className="hidden md:flex md:w-1/2 justify-end animate-fade-in-right">
+                    {/* <img 
+                        src={currentSlide.illustrationUrl}
+                        alt="Modern web development and digital solutions illustration" 
+                        className="w-full h-auto object-contain max-w-lg shadow-2xl rounded-lg" 
+                        onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/500x300/e0e0e0/333333?text=Image+Not+Found"; }}
+                    /> */}
+                </div>
+            </div>
 
-    </div>
-  )
-}
+            {/* Carousel navigation dots */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+                {slides.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrentSlideIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 
+                                    ${currentSlideIndex === index ? 'bg-white scale-125' : 'bg-gray-400 opacity-60'}`}
+                        aria-label={`Go to slide ${index + 1}`}
+                    ></button>
+                ))}
+            </div>
 
-export default Hero
+            {/* Tailwind CSS keyframes for subtle animations */}
+            <style>{`
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes fadeInRight {
+                    from { opacity: 0; transform: translateX(20px); }
+                    to { opacity: 1; transform: translateX(0); }
+                }
+                .animate-fade-in-up {
+                    animation: fadeInUp 0.8s ease-out forwards;
+                }
+                .animate-fade-in-right {
+                    animation: fadeInRight 0.8s ease-out forwards;
+                    animation-delay: 0.2s; /* Stagger animation for visual interest */
+                }
+            `}</style>
+        </section>
+    );
+};
+
+export default Hero;
