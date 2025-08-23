@@ -145,7 +145,7 @@ const ContactUsPage = () => {
                 <div className="bg-white shadow-xl rounded-xl p-6 sm:p-8 lg:p-10 w-full max-w-4xl flex flex-col lg:flex-row gap-8">
                     {/* Contact Information Section (left side) */}
                     <div className="lg:w-1/2 space-y-6 text-gray-700">
-                        <h1 className="text-4xl font-extrabold text-gray-900 mb-4 rounded-md">Contact Us 💬</h1>
+                        <h1 className="text-4xl font-extrabold text-gray-900 mb-4 rounded-md">Contact Us </h1>
                         <p className="text-lg leading-relaxed">
                             We'd love to hear from you! Whether you have a question about our features, pricing, need a demo, or anything else, our team is ready to answer all your questions.
                         </p>
