@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from './Footer';
-import Aboutus from './Aboutus';
+import Aboutus from './aboutus';
 import Contactus from './Contactus';
 import Hero from './hero';
 
