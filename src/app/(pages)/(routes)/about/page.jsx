@@ -15,11 +15,22 @@ const services = [
   { id: 6, name: "Digital Marketing", description: "Strategies to connect you with your target audience and grow your reach.", icon: <Megaphone className="w-12 h-12" /> },
 ];
 
-const router = useRouter()
 
-const handleSolution = (e) =>{
-    e.preventDefault()
-    router.push("/services")
+
+const Button = () => {
+    const router = useRouter()
+
+    const handleSolution = (e) =>{
+        e.preventDefault()
+        router.push("/services")
+    }
+    return(
+
+            <button onClick={handleSolution} className="mt-10 px-8 py-4 bg-amber-400 text-indigo-950 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in delay-400 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
+                Discover Our Solutions
+            </button>
+
+    )
 }
 
 
@@ -42,9 +53,7 @@ const Hero = () => (
       <p className="text-xl md:text-2xl mt-4 max-w-3xl mx-auto opacity-90 animate-fade-in delay-200">
         Transforming digital ideas into powerful realities.
       </p>
-      <button onClick={handleSolution} className="mt-10 px-8 py-4 bg-amber-400 text-indigo-950 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in delay-400 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
-        Discover Our Solutions
-      </button>
+      <Button/>
     </div>
   </div>
 );
