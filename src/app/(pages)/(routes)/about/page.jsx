@@ -21,6 +21,7 @@ const handleSolution = (e) =>{
     router.push("/services")
 }
 
+
 // Hero component with refined styling
 const Hero = () => (
   <div className="relative bg-gradient-to-br from-indigo-950 to-gray-900 text-white py-24 md:py-40 overflow-hidden rounded-b-[4rem] shadow-2xl">
