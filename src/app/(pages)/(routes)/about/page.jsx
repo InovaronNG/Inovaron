@@ -2,7 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, Code, TrendingUp, ShoppingBag, Layout, Megaphone } from 'lucide-react'; 
 import Footer from "../../components/Footer"
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
+// import {useRouter} from "next/nav";
 
 // Mock data for services
 const services = [
