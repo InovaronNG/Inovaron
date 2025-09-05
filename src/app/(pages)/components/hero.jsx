@@ -82,7 +82,7 @@ const Hero = () => {
                     </p>
                     <div className="mt-10">
                         <a
-                            href="/service" // Link directly to the service page
+                            href="/services" // Link directly to the service page
                             className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-xl 
                                        hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 
                                        focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
