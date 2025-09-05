@@ -42,7 +42,7 @@ const Hero = () => (
       <p className="text-xl md:text-2xl mt-4 max-w-3xl mx-auto opacity-90 animate-fade-in delay-200">
         Transforming digital ideas into powerful realities.
       </p>
-      <button onClick={handleSolution()} className="mt-10 px-8 py-4 bg-amber-400 text-indigo-950 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in delay-400 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
+      <button onClick={handleSolution} className="mt-10 px-8 py-4 bg-amber-400 text-indigo-950 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in delay-400 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
         Discover Our Solutions
       </button>
     </div>
