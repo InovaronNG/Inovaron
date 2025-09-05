@@ -1,4 +1,4 @@
-var about;
+let about;
 
 export default about =[
     {

@@ -1,16 +1,17 @@
 "use client"
 import React, { useState } from 'react';
-import Footer from '../../components/Footer'; // Corrected Footer component path
-import { motion } from 'framer-motion'; // For animations
-import { MessageCircleMore } from 'lucide-react'; // Example icon for the hero section
+import Footer from '../../components/Footer'; 
+import { motion } from 'framer-motion'; 
+import { MessageCircleMore } from 'lucide-react'; 
+import { ToastContainer, toast } from 'react-toastify';
 
-// Main Contact Us Page Component
+
 const ContactUsPage = () => {
-    // State to manage form input values
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        subject: '',
+        // subject: '',
         message: '',
     });
 
@@ -28,32 +29,41 @@ const ContactUsPage = () => {
     };
 
     // Handle form submission
-    const handleSubmit = async (e) => {
+     async function handleSubmit(e) {
         e.preventDefault();
-        setIsSubmitting(true);
-        setSubmissionMessage('');
-
-        // In a real application, you would send this data to your backend API
-        // For demonstration, we'll simulate an API call with a delay
+        setIsSubmitting(true)
+    
         try {
-            console.log('Form Data Submitted:', formData);
-            await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate network delay
-
-            // Reset form and show success message
-            setFormData({
-                name: '',
-                email: '',
-                subject: '',
-                message: '',
-            });
-            setSubmissionMessage('✅ Your message has been sent successfully!');
+          const response = await fetch("https://formspree.io/f/xwpnqyjq", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+            //   access_key: "9d656c0b-a9da-48d9-adf3-776f688cc3ac", 
+              name: formData.name,
+              email: formData.email,
+            //   subject: formData.subject,
+              message: formData.message,
+            }),
+          });
+          const result = await response.json();
+          if (result.success) {
+            console.log(result);
+            toast.success("Message sent successfully!");
+            setFormData({ name: '', email: '', message: '' }); // Clear form fields
+          } else {
+            // console.error("Submission failed:", result);
+            toast.error("Failed to send message. Please try again.");
+          }
         } catch (error) {
-            console.error('Submission error:', error);
-            setSubmissionMessage('❌ There was an error sending your message. Please try again.');
+        //   console.error("Error submitting form:", error);
+          toast.error("An error occurred. Please try again later.");
         } finally {
             setIsSubmitting(false);
         }
-    };
+      }
 
     // Animation variants for Framer Motion
     const containerVariants = {
@@ -80,8 +90,8 @@ const ContactUsPage = () => {
     };
 
     return (
-        // Main container for the entire page, ensuring full height and flex column layout
         <div className="w-full flex flex-col min-h-screen font-inter">
+            <ToastContainer />
             {/* Hero Section - A vibrant, animated header for the contact page */}
             <motion.section
                 className="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-bl-3xl rounded-br-3xl shadow-lg"
@@ -159,7 +169,7 @@ const ContactUsPage = () => {
                                     </svg>
                                     Phone
                                 </h2>
-                                <a href="tel:09014495422" className="ml-7">(+123) 9014495422</a>
+                                <a href="tel:09014495422" className="ml-7">(+234) 9014495422</a>
                             </div>
                             {/* Email contact details */}
                             <div>
@@ -211,7 +221,7 @@ const ContactUsPage = () => {
                                 />
                             </div>
                             {/* Subject input field */}
-                            <div>
+                            {/* <div>
                                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700">
                                     Subject
                                 </label>
@@ -225,7 +235,7 @@ const ContactUsPage = () => {
                                     placeholder="Regarding..."
                                     required
                                 />
-                            </div>
+                            </div> */}
                             {/* Message textarea field */}
                             <div>
                                 <label htmlFor="message" className="block text-sm font-medium text-gray-700">

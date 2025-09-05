@@ -51,11 +51,11 @@ const Aboutus = () => (
       </p>
       <div className="mt-10 flex flex-wrap justify-center gap-8">
         <div className="p-6 bg-indigo-100  rounded-xl shadow-md backdrop-blur-sm transform hover:scale-105 transition-all duration-300 border border-indigo-200">
-          <p className="text-3xl font-bold text-indigo-700 ">10+</p>
+          <p className="text-3xl font-bold text-indigo-700 ">2+</p>
           <p className="text-lg text-gray-800 ">Years Experience</p>
         </div>
         <div className="p-6 bg-amber-100  rounded-xl shadow-md backdrop-blur-sm transform hover:scale-105 transition-all duration-300 border border-amber-200 ">
-          <p className="text-3xl font-bold text-amber-700 ">200+</p>
+          <p className="text-3xl font-bold text-amber-700 ">50+</p>
           <p className="text-lg text-gray-800">Successful Projects</p>
         </div>
       </div>
@@ -74,7 +74,7 @@ const Contactus = () => (
         Ready to start your next big project? Reach out to us, and let's turn your vision into reality.
       </p>
       <div className="mt-10">
-        <a href="mailto:info@inovareun.com" className="inline-block px-10 py-4 bg-amber-400 text-indigo-900 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
+        <a href="mailto:inovaronng@gmail.com" className="inline-block px-10 py-4 bg-amber-400 text-indigo-900 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
           Say Hello
         </a>
       </div>

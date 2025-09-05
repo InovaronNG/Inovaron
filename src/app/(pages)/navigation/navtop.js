@@ -17,7 +17,12 @@ const navtop = [
     {
         id:4,
         name: 'Services',
-        href: '/service',
+        href: '/services',
+    },
+    {
+        id:5,
+        name: 'Portfolio',
+        href: '/portfoli',
     },
 ]
 export default navtop
