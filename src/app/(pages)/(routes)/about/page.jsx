@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, Code, TrendingUp, ShoppingBag, Layout, Megaphone } from 'lucide-react'; 
 import Footer from "../../components/Footer"
+import {useRouter} from "next/router";
 
 // Mock data for services
 const services = [
@@ -14,7 +15,9 @@ const services = [
 ];
 
 // Hero component with refined styling
-const Hero = () => (
+const Hero = () => {
+const route  = useRouter()
+    return(
   <div className="relative bg-gradient-to-br from-indigo-950 to-gray-900 text-white py-24 md:py-40 overflow-hidden rounded-b-[4rem] shadow-2xl">
     <div className="absolute inset-0 z-0 opacity-10">
       {/* Subtle background pattern */}
@@ -32,12 +35,12 @@ const Hero = () => (
       <p className="text-xl md:text-2xl mt-4 max-w-3xl mx-auto opacity-90 animate-fade-in delay-200">
         Transforming digital ideas into powerful realities.
       </p>
-      <button className="mt-10 px-8 py-4 bg-amber-400 text-indigo-950 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in delay-400 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70">
+      <button className="mt-10 px-8 py-4 bg-amber-400 text-indigo-950 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-fade-in delay-400 focus:outline-none focus:ring-4 focus:ring-amber-300 focus:ring-opacity-70" onClick={() => route.push("/services")}>
         Discover Our Solutions
       </button>
     </div>
   </div>
-);
+);}
 
 // About Us component with refined styling
 const Aboutus = () => (
